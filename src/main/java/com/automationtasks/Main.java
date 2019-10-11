@@ -1,21 +1,19 @@
 package com.automationtasks;
 
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
+import java.time.LocalDate;
 
 public class Main {
 
-        public static void main(String[] args) throws IOException, TransformerException, SAXException, ParserConfigurationException {
-            List<String> listOfDates = CsvWork.getListOfDates();
-            Map<String, String> receivedData = WebService.getContent(listOfDates);
-            List<String> listOfCreatedXmlFiles = XmlWork.getListOfCreatedXmlFiles(receivedData);
-            List<ValCurs> listOfValCursObjects = Deserialize.getDeserialized(listOfCreatedXmlFiles);
-            XlsxWork.createXlsxFile(listOfValCursObjects);
+        public static void main(String[] args){
+            LocalDate startDate = LocalDate.of(2018, 10, 1);
+            LocalDate endDate = LocalDate.of(2018, 11, 4);
+            String valuteCharCode = "EUR";
+
+            //Task #4
+            System.out.println(BnmWebService.getValCurs(startDate));
+            //Task #5
+            System.out.println(BnmWebService.getValute(startDate, valuteCharCode));
+            //Task #6
+            System.out.println(BnmWebService.getMaxValute(startDate, endDate, valuteCharCode));
         }
 }
